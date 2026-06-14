@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Resurgence Powered by DesignXpress — Premium custom sublimation uniforms and high-detail DTF teamwear. Official site: resurgence-dx.biz">
+    <title>Resurgence • Official Custom Uniforms | resurgence-dx.biz</title>
+    
+    <!-- Tailwind via CDN for instant high-performance deploy on Cloudflare Pages -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #0F172A;
+            --secondary: #1E40AF;
+            --accent: #F59E0B;
+            --hero-bg: #0F172A;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .product-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-active {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .premium-btn {
+            background: linear-gradient(135deg, var(--secondary), #1E3A8A);
+            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgb(30 64 175 / 0.3);
+        }
+
+        .mobile-rigid {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .canvas-container {
+            background: #0F172A;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+            position: relative;
+        }
+
+        .logo-layer {
+            position: absolute;
+            cursor: move;
+            user-select: none;
+            touch-action: none;
+            border: 1px dashed rgba(255,255,255,0.3);
+            border-radius: 4px;
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .shop-tab {
+            transition: all 0.2s ease;
+        }
+
+        .shop-tab.active {
+            background-color: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .uniform-preview {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 mobile-rigid">
+    <!-- NAV -->
+    <nav class="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo + Brand -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center shadow-inner">
+                        <span class="text-slate-950 font-display text-3xl font-bold tracking-tighter">R</span>
+                    </div>
+                    <div>
+                        <div id="nav-brand-name" class="font-display text-2xl font-semibold tracking-tighter">RESURGENCE</div>
+                        <div id="nav-brand-tagline" class="text-[10px] text-slate-400 -mt-1 tracking-[1.5px]">POWERED BY DESIGNXPRESS</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#shop" class="hover:text-white transition-colors">Shop</a>
+                    <a href="#customize" class="hover:text-white transition-colors">Customize</a>
+                    <a href="#how" class="hover:text-white transition-colors">How it Works</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <!-- Dynamic Contact -->
+                    <a href="mailto:hello@resurgence-dx.biz" 
+                       class="hidden sm:flex items-center gap-x-2 px-4 py-2 text-sm rounded-3xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-envelope text-xs"></i>
+                        <span class="font-medium" id="nav-contact-email">hello@resurgence-dx.biz</span>
+                    </a>
+                    
+                    <button onclick="openCustomizeModal()"
+                            class="premium-btn px-6 py-3 rounded-3xl text-white text-sm font-semibold flex items-center gap-x-2 shadow-lg shadow-blue-950/50">
+                        <i class="fa-solid fa-magic"></i>
+                        <span class="hidden sm:inline">Start Customizing</span>
+                        <span class="sm:hidden">Customize</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="relative overflow-hidden bg-slate-950 border-b border-slate-800">
+        <div class="max-w-5xl mx-auto px-6 pt-16 pb-20 text-center">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-slate-900 border border-slate-700 mb-6">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span class="text-emerald-400 text-xs font-semibold tracking-widest">OFFICIAL • CLOUD FLARE + R2 POWERED</span>
+            </div>
+            
+            <h1 class="section-header max-w-4xl mx-auto leading-none tracking-tighter mb-4">
+                Premium Custom Uniforms.<br>
+                <span class="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Built to Dominate.</span>
+            </h1>
+            
+            <p class="max-w-lg mx-auto text-xl text-slate-400 mb-10">
+                Full sublimation uniforms &amp; high-detail DTF streetwear for teams that refuse to blend in.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })" 
+                        class="w-full sm:w-auto px-10 py-4 rounded-3xl bg-white text-slate-950 font-semibold text-lg flex items-center justify-center gap-x-3 hover:bg-amber-50 transition-all active:scale-[0.985]">
+                    <span>Browse Collection</span>
+                </button>
+                
+                <button onclick="openCustomizeModal()" 
+                        class="w-full sm:w-auto px-10 py-4 rounded-3xl border border-slate-700 hover:bg-slate-900 font-semibold text-lg flex items-center justify-center gap-x-3 transition-all active:scale-[0.985]">
+                    <i class="fa-solid fa-upload"></i>
+                    <span>Upload Logos &amp; Get Quote</span>
+                </button>
+            </div>
+            
+            <div class="mt-8 flex items-center justify-center gap-x-8 text-xs text-slate-500">
+                <div class="flex items-center gap-x-1.5">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Global edge delivery via Cloudflare</span>
+                </div>
+                <div class="hidden sm:block w-px h-3 bg-slate-700"></div>
+                <div>Direct R2 uploads • Zero latency</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TRUST BAR -->
+    <div class="border-b border-slate-800 bg-slate-900/50 py-4">
+        <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-3 text-sm text-slate-400">
+            <div class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400"></i> <span>Trusted by 180+ teams</span></div>
+            <div class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400"></i> <span>48hr production on approved quotes</span></div>
+            <div class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400"></i> <span>Official resurgence-dx.biz</span></div>
+        </div>
+    </div>
+
+    <!-- SHOP SECTION -->
+    <section id="shop" class="max-w-7xl mx-auto px-6 pt-16 pb-20">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-slate-500 mb-1">OFFICIAL COLLECTION</div>
+                <h2 class="section-header tracking-tighter">Choose Your Weapon</h2>
+            </div>
+            
+            <!-- Category Tabs -->
+            <div class="hidden md:flex bg-slate-900 border border-slate-800 rounded-3xl p-1">
+                <button onclick="filterShop('all')" class="shop-tab active px-6 py-2 text-sm font-medium rounded-3xl" id="tab-all">All</button>
+                <button onclick="filterShop('sublimation')" class="shop-tab px-6 py-2 text-sm font-medium rounded-3xl" id="tab-sublimation">Sublimation Uniforms</button>
+                <button onclick="filterShop('dtf')" class="shop-tab px-6 py-2 text-sm font-medium rounded-3xl" id="tab-dtf">DTF Streetwear</button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="bg-slate-900 border-y border-slate-800 py-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-amber-400 mb-2">4 SIMPLE STEPS</div>
+                <h2 class="section-header tracking-tighter">From Vision to Victory</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl p-7">
+                    <div class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded-2xl mb-5 text-amber-400"><i class="fa-solid fa-upload text-xl"></i></div>
+                    <div class="font-semibold mb-2">1. Upload Your Assets</div>
+                    <p class="text-sm text-slate-400">Logos, team name, colors. Multiple files supported. Direct to R2.</p>
+                </div>
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl p-7">
+                    <div class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded-2xl mb-5 text-amber-400"><i class="fa-solid fa-palette text-xl"></i></div>
+                    <div class="font-semibold mb-2">2. Live Preview</div>
+                    <p class="text-sm text-slate-400">Real-time Canvas preview with drag-to-position logos and instant color updates.</p>
+                </div>
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl p-7">
+                    <div class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded-2xl mb-5 text-amber-400"><i class="fa-solid fa-file-invoice-dollar text-xl"></i></div>
+                    <div class="font-semibold mb-2">3. Receive Quote</div>
+                    <p class="text-sm text-slate-400">Instant quote request goes to our production team. 48hr turnaround on approved orders.</p>
+                </div>
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl p-7">
+                    <div class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded-2xl mb-5 text-amber-400"><i class="fa-solid fa-tachometer-alt text-xl"></i></div>
+                    <div class="font-semibold mb-2">4. Dominate</div>
+                    <p class="text-sm text-slate-400">Your uniforms arrive ready for battle. Track everything in your client dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+        <h3 class="text-4xl font-semibold tracking-tighter mb-4">Ready to build your legacy?</h3>
+        <p class="text-xl text-slate-400 mb-8 max-w-md mx-auto">Join the crews that choose Resurgence when second place is not an option.</p>
+        
+        <button onclick="openCustomizeModal()" 
+                class="premium-btn inline-flex items-center justify-center gap-x-3 px-14 py-5 text-xl font-semibold rounded-3xl text-white shadow-xl shadow-blue-950/40 active:scale-[0.985] transition-all">
+            <span>Launch Customizer</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        
+        <div class="mt-6 text-xs text-slate-500">Official domain • resurgence-dx.biz • Secured by Cloudflare</div>
+    </div>
+
+    <!-- CUSTOMIZATION MODAL -->
+    <div id="customize-modal" onclick="if (event.target.id === 'customize-modal') closeCustomizeModal()" 
+         class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4">
+        
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-slate-950 border border-slate-700 w-full max-w-[1100px] rounded-3xl overflow-hidden shadow-2xl max-h-[95vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="px-8 py-5 border-b border-slate-800 flex items-center justify-between bg-slate-900">
+                <div>
+                    <div class="font-semibold text-2xl tracking-tight">Live Customizer</div>
+                    <div class="text-sm text-slate-400">resurgence-dx.biz • Direct R2 uploads • Instant preview</div>
+                </div>
+                <button onclick="closeCustomizeModal()" class="text-slate-400 hover:text-white text-3xl leading-none w-9 h-9 flex items-center justify-center">&times;</button>
+            </div>
+
+            <div class="flex-1 overflow-auto p-8 grid grid-cols-1 lg:grid-cols-5 gap-8">
+                
+                <!-- PREVIEW COLUMN -->
+                <div class="lg:col-span-3">
+                    <div class="mb-4 flex items-center justify-between">
+                        <div class="font-semibold">Live Preview</div>
+                        <div class="text-xs px-3 py-1 bg-slate-900 rounded-2xl text-emerald-400 flex items-center gap-x-1.5">
+                            <i class="fa-solid fa-bolt"></i> 
+                            <span>Canvas + R2</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Canvas Preview -->
+                    <div class="canvas-container p-6 flex justify-center" style="background: linear-gradient(145deg, #0F172A, #020617);">
+                        <div class="uniform-preview relative" style="max-width: 380px;">
+                            <!-- Base Jersey -->
+                            <canvas id="preview-canvas" width="380" height="420" class="rounded-2xl border border-slate-700 shadow-inner"></canvas>
+                            
+                            <!-- Logo Layers Container (for DOM positioning if needed) -->
+                            <div id="logo-layers" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex justify-center gap-2">
+                        <button onclick="resetPreview()" 
+                                class="px-5 py-2 text-xs rounded-2xl border border-slate-700 hover:bg-slate-900 flex items-center gap-x-2">
+                            <i class="fa-solid fa-undo"></i>
+                            <span>Reset Preview</span>
+                        </button>
+                        <button onclick="randomizeColors()" 
+                                class="px-5 py-2 text-xs rounded-2xl border border-slate-700 hover:bg-slate-900 flex items-center gap-x-2">
+                            <i class="fa-solid fa-dice"></i>
+                            <span>Random Colors</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTROLS COLUMN -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Product Selection -->
+                    <div>
+                        <label class="block text-xs font-semibold tracking-widest text-slate-400 mb-2">PRODUCT</label>
+                        <select id="product-select" onchange="updatePreviewProduct()" 
+                                class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <!-- Colors -->
+                    <div>
+                        <label class="block text-xs font-semibold tracking-widest text-slate-400 mb-3">BRAND COLORS</label>
+                        
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <div class="text-[10px] mb-1.5 text-slate-400">Primary</div>
+                                <input type="color" id="color-primary" value="#0F172A" onchange="updatePreviewColors()"
+                                       class="w-full h-11 rounded-2xl border border-slate-700 bg-transparent cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="text-[10px] mb-1.5 text-slate-400">Secondary</div>
+                                <input type="color" id="color-secondary" value="#1E40AF" onchange="updatePreviewColors()"
+                                       class="w-full h-11 rounded-2xl border border-slate-700 bg-transparent cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="text-[10px] mb-1.5 text-slate-400">Accent</div>
+                                <input type="color" id="color-accent" value="#F59E0B" onchange="updatePreviewColors()"
+                                       class="w-full h-11 rounded-2xl border border-slate-700 bg-transparent cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logo Uploads -->
+                    <div>
+                        <label class="block text-xs font-semibold tracking-widest text-slate-400 mb-2">LOGO UPLOADS (max 4)</label>
+                        
+                        <div class="space-y-2" id="logo-upload-area">
+                            <!-- Dynamic upload slots added by JS -->
+                        </div>
+                        
+                        <button onclick="addLogoSlot()" 
+                                class="mt-2 w-full flex items-center justify-center gap-x-2 text-xs py-2.5 border border-dashed border-slate-600 hover:border-slate-400 rounded-2xl text-slate-400 hover:text-white transition-colors">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add Another Logo</span>
+                        </button>
+                    </div>
+
+                    <!-- Team Info -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold tracking-widest text-slate-400 mb-1.5">TEAM / ORGANIZATION</label>
+                            <input id="team-name" type="text" value="Phoenix FC" 
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold tracking-widest text-slate-400 mb-1.5">QUANTITY</label>
+                            <input id="quantity" type="number" value="12" min="1" 
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold tracking-widest text-slate-400 mb-1.5">SPECIAL NOTES / INSTRUCTIONS</label>
+                        <textarea id="notes" rows="2" placeholder="Sleeve numbers, sponsor placement, etc."
+                                  class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600 resize-y"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-8 py-5 bg-slate-900 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-sm">
+                    <span class="text-emerald-400 font-medium">Est. quote delivery:</span> 
+                    <span class="text-slate-300">within 2 hours</span>
+                </div>
+                
+                <div class="flex gap-3 w-full sm:w-auto">
+                    <button onclick="closeCustomizeModal()" 
+                            class="flex-1 sm:flex-none px-8 py-3.5 rounded-2xl border border-slate-700 font-medium hover:bg-slate-800 transition-colors">
+                        Cancel
+                    </button>
+                    <button onclick="submitQuoteRequest()" 
+                            class="flex-1 sm:flex-none premium-btn px-10 py-3.5 rounded-2xl text-white font-semibold flex items-center justify-center gap-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Request Official Quote</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+        <div>© Resurgence Powered by DesignXpress — Official Site • <span class="font-mono">resurgence-dx.biz</span></div>
+        <div class="mt-1">Secured by Cloudflare • Assets on R2 • Built for performance</div>
+    </footer>
+
+    <script>
+        // ============================================
+        // VINAI PERFORMANCE VANILLA STOREFRONT
+        // resurgence-dx.biz — Public Money Pages
+        // ============================================
+
+        // Tailwind script configuration
+        function initTailwind() {
+            document.documentElement.style.setProperty('--primary', '#0F172A');
+            document.documentElement.style.setProperty('--secondary', '#1E40AF');
+            document.documentElement.style.setProperty('--accent', '#F59E0B');
+        }
+
+        // Sample Products (will come from Supabase later)
+        const products = [
+            {
+                id: 1,
+                category: 'sublimation',
+                name: "Elite Basketball Uniform Set",
+                price: 89,
+                type: "Full Sublimation",
+                image: "https://picsum.photos/id/1015/600/700",
+                description: "Premium moisture-wicking full sublimation basketball kit"
+            },
+            {
+                id: 2,
+                category: 'sublimation',
+                name: "Pro Football Jersey",
+                price: 95,
+                type: "Full Sublimation",
+                image: "https://picsum.photos/id/106/600/700",
+                description: "Tournament-grade sublimated football jersey"
+            },
+            {
+                id: 3,
+                category: 'dtf',
+                name: "Shadow Street Hoodie",
+                price: 68,
+                type: "High-Detail DTF",
+                image: "https://picsum.photos/id/1005/600/700",
+                description: "Premium streetwear hoodie with high-detail DTF prints"
+            },
+            {
+                id: 4,
+                category: 'dtf',
+                name: "Rebel Team Jacket",
+                price: 112,
+                type: "High-Detail DTF",
+                image: "https://picsum.photos/id/160/600/700",
+                description: "Heavyweight team jacket with detailed DTF application"
+            },
+            {
+                id: 5,
+                category: 'sublimation',
+                name: "Volleyball Pro Kit",
+                price: 79,
+                type: "Full Sublimation",
+                image: "https://picsum.photos/id/201/600/700",
+                description: "Lightweight performance volleyball uniform"
+            },
+            {
+                id: 6,
+                category: 'dtf',
+                name: "Legacy Crewneck",
+                price: 55,
+                type: "High-Detail DTF",
+                image: "https://picsum.photos/id/251/600/700",
+                description: "Clean streetwear crewneck with premium DTF"
+            }
+        ];
+
+        let currentFilter = 'all';
+        let logoSlots = [];
+        let previewCanvas, ctx;
+        let currentProduct = null;
+
+        // Initialize everything
+        function initializeStorefront() {
+            initTailwind();
+            renderProducts();
+            initCanvas();
+            initBranding();
+            
+            // Preload first product in customizer if opened
+            console.log('%c[VinAI] Vanilla storefront initialized — 0 framework overhead', 'color:#64748b');
+        }
+
+        // Dynamic Branding Injection (from Cloudflare KV / API later)
+        function initBranding() {
+            // In production: fetch from Cloudflare KV or /api/branding
+            const branding = {
+                company: "RESURGENCE",
+                tagline: "POWERED BY DESIGNXPRESS",
+                primary: "#0F172A",
+                secondary: "#1E40AF",
+                accent: "#F59E0B",
+                heroBg: "#0F172A",
+                contactEmail: "hello@resurgence-dx.biz"
+            };
+
+            // Apply CSS variables
+            document.documentElement.style.setProperty('--primary', branding.primary);
+            document.documentElement.style.setProperty('--secondary', branding.secondary);
+            document.documentElement.style.setProperty('--accent', branding.accent);
+            document.documentElement.style.setProperty('--hero-bg', branding.heroBg);
+
+            // Update nav elements
+            document.getElementById('nav-brand-name').textContent = branding.company;
+            document.getElementById('nav-brand-tagline').textContent = branding.tagline;
+            document.getElementById('nav-contact-email').textContent = branding.contactEmail;
+        }
+
+        // Render Product Grid
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            currentFilter = filter;
+
+            const filtered = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = `product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden group`;
+                
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" 
+                             class="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition-transform duration-300">
+                        
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 text-[10px] font-semibold tracking-wider rounded-2xl ${product.category === 'sublimation' ? 'bg-blue-600' : 'bg-amber-600'}">
+                                ${product.type}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5">
+                        <div class="font-semibold text-lg tracking-tight mb-1">${product.name}</div>
+                        <div class="text-sm text-slate-400 mb-4 line-clamp-2">${product.description}</div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-semibold">$${product.price}</span>
+                                <span class="text-xs text-slate-500">/ set</span>
+                            </div>
+                            
+                            <button onclick="openCustomizeModal(${product.id}); event.stopImmediatePropagation();"
+                                    class="px-5 py-2 text-sm font-semibold rounded-2xl bg-white text-slate-950 hover:bg-amber-50 active:scale-[0.985] transition-all flex items-center gap-x-2">
+                                <span>Customize</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                card.onclick = () => openCustomizeModal(product.id);
+                grid.appendChild(card);
+            });
+
+            // Update tab states
+            updateTabStates(filter);
+        }
+
+        function filterShop(category) {
+            renderProducts(category);
+        }
+
+        function updateTabStates(active) {
+            ['all', 'sublimation', 'dtf'].forEach(cat => {
+                const tab = document.getElementById(`tab-${cat}`);
+                if (!tab) return;
+                
+                if (cat === active) {
+                    tab.classList.add('active', 'bg-blue-600', 'text-white', 'border-blue-600');
+                    tab.classList.remove('border-slate-700');
+                } else {
+                    tab.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-600');
+                    tab.classList.add('border-slate-700');
+                }
+            });
+        }
+
+        // ==================== CANVAS PREVIEW SYSTEM ====================
+        function initCanvas() {
+            previewCanvas = document.getElementById('preview-canvas');
+            ctx = previewCanvas.getContext('2d', { alpha: true });
+            
+            // Initial draw
+            drawBaseJersey();
+        }
+
+        function drawBaseJersey(colorPrimary = '#0F172A', colorSecondary = '#1E40AF', colorAccent = '#F59E0B') {
+            if (!ctx || !previewCanvas) return;
+
+            ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+            
+            // Background
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
+
+            // Jersey body (simplified realistic shape)
+            ctx.fillStyle = colorPrimary;
+            ctx.beginPath();
+            ctx.roundRect(70, 60, 240, 300, 30);
+            ctx.fill();
+
+            // Sleeves
+            ctx.fillStyle = colorSecondary;
+            ctx.beginPath();
+            ctx.roundRect(40, 80, 50, 160, 20);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(290, 80, 50, 160, 20);
+            ctx.fill();
+
+            // Collar
+            ctx.fillStyle = colorAccent;
+            ctx.beginPath();
+            ctx.ellipse(190, 85, 55, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Neck line
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(190, 95, 38, 0.2, Math.PI - 0.2);
+            ctx.stroke();
+
+            // Subtle texture lines (sublimation effect)
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 8; i++) {
+                ctx.beginPath();
+                ctx.moveTo(85, 120 + i * 28);
+                ctx.lineTo(295, 120 + i * 28);
+                ctx.stroke();
+            }
+
+            // Chest logo placeholder area
+            ctx.fillStyle = 'rgba(255,255,255,0.08)';
+            ctx.fillRect(130, 160, 120, 70);
+            
+            // Draw any uploaded logos
+            drawLogoLayers();
+        }
+
+        function drawLogoLayers() {
+            // This function can be extended to draw actual logo images on canvas
+            // For maximum performance we use DOM overlay for drag/scale in this version
+            // Advanced version would use canvas.drawImage() with loaded logo bitmaps
+        }
+
+        function updatePreviewColors() {
+            const primary = document.getElementById('color-primary').value;
+            const secondary = document.getElementById('color-secondary').value;
+            const accent = document.getElementById('color-accent').value;
+
+            // Update global CSS vars (for future branding sync)
+            document.documentElement.style.setProperty('--primary', primary);
+            document.documentElement.style.setProperty('--secondary', secondary);
+            document.documentElement.style.setProperty('--accent', accent);
+
+            drawBaseJersey(primary, secondary, accent);
+        }
+
+        function updatePreviewProduct() {
+            const select = document.getElementById('product-select');
+            const productId = parseInt(select.value);
+            currentProduct = products.find(p => p.id === productId);
+            
+            // Redraw with current colors
+            const primary = document.getElementById('color-primary').value;
+            const secondary = document.getElementById('color-secondary').value;
+            const accent = document.getElementById('color-accent').value;
+            
+            drawBaseJersey(primary, secondary, accent);
+        }
+
+        function randomizeColors() {
+            const colors = ['#0F172A', '#1E3A8A', '#334155', '#7C3AED', '#B91C1C', '#166534', '#854D0E'];
+            
+            document.getElementById('color-primary').value = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById('color-secondary').value = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById('color-accent').value = colors[Math.floor(Math.random() * colors.length)];
+            
+            updatePreviewColors();
+        }
+
+        function resetPreview() {
+            document.getElementById('color-primary').value = '#0F172A';
+            document.getElementById('color-secondary').value = '#1E40AF';
+            document.getElementById('color-accent').value = '#F59E0B';
+            
+            // Clear logo layers
+            document.getElementById('logo-layers').innerHTML = '';
+            logoSlots = [];
+            
+            updatePreviewColors();
+        }
+
+        // ==================== LOGO UPLOAD SYSTEM ====================
+        function createLogoSlot(index) {
+            const container = document.createElement('div');
+            container.className = `flex items-center gap-3 bg-slate-900 border border-slate-700 rounded-2xl p-3`;
+            container.id = `logo-slot-${index}`;
+
+            container.innerHTML = `
+                <div class="flex-1">
+                    <input type="file" accept="image/*" id="logo-file-${index}" 
+                           class="hidden" onchange="handleLogoUpload(${index}, this)">
+                    
+                    <div onclick="document.getElementById('logo-file-${index}').click()" 
+                         class="cursor-pointer flex items-center gap-x-3 text-sm">
+                        <div class="w-9 h-9 bg-slate-800 rounded-xl flex items-center justify-center text-slate-400">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium text-sm" id="logo-name-${index}">Upload logo ${index + 1}</div>
+                            <div class="text-[10px] text-slate-500">PNG, JPG, SVG • &lt; 2MB</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="removeLogoSlot(${index})" 
+                        class="text-slate-400 hover:text-red-400 px-3 py-1 text-lg leading-none">×</button>
+            `;
+            
+            return container;
+        }
+
+        function addLogoSlot() {
+            if (logoSlots.length >= 4) {
+                alert("Maximum 4 logos allowed for performance.");
+                return;
+            }
+            
+            const index = logoSlots.length;
+            const slot = createLogoSlot(index);
+            document.getElementById('logo-upload-area').appendChild(slot);
+            logoSlots.push({ index, file: null, url: null });
+        }
+
+        function handleLogoUpload(index, input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            // Basic validation
+            if (!file.type.startsWith('image/')) {
+                alert("Please upload an image file.");
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                alert("File too large. Max 2MB recommended for R2 upload.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Update UI
+                const nameEl = document.getElementById(`logo-name-${index}`);
+                if (nameEl) nameEl.textContent = file.name.length > 18 ? file.name.substring(0, 15) + '...' : file.name;
+
+                // Store file reference
+                logoSlots[index] = { ...logoSlots[index], file, url: e.target.result };
+
+                // Add visual layer to preview (simplified DOM overlay for now)
+                addLogoToPreview(index, e.target.result);
+            };
+            reader.readAsDataURL(file);
+
+            // TODO: In production, get presigned URL from Cloudflare Worker and upload directly to R2 here
+            // Example: uploadToR2(file).then(url => console.log('Uploaded to R2:', url))
+        }
+
+        function addLogoToPreview(index, dataUrl) {
+            const layersContainer = document.getElementById('logo-layers');
+            
+            // Remove existing layer if re-uploading
+            const existing = document.getElementById(`preview-logo-${index}`);
+            if (existing) existing.remove();
+
+            const layer = document.createElement('div');
+            layer.id = `preview-logo-${index}`;
+            layer.className = `logo-layer w-20 h-20 flex items-center justify-center`;
+            layer.style.left = `${120 + (index * 25)}px`;
+            layer.style.top = `${180 + (index * 15)}px`;
+            layer.style.width = '85px';
+            layer.style.height = '85px';
+            layer.style.pointerEvents = 'all';
+
+            layer.innerHTML = `
+                <img src="${dataUrl}" class="max-w-full max-h-full object-contain drop-shadow-xl" 
+                     style="filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.3));">
+            `;
+
+            // Make draggable
+            makeDraggable(layer);
+
+            layersContainer.appendChild(layer);
+        }
+
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+            element.onmousedown = dragMouseDown;
+            element.ontouchstart = dragTouchStart;
+
+            function dragMouseDown(e) {
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function dragTouchStart(e) {
+                if (e.touches.length !== 1) return;
+                pos3 = e.touches[0].clientX;
+                pos4 = e.touches[0].clientY;
+                document.ontouchend = closeDragElement;
+                document.ontouchmove = elementDragTouch;
+            }
+
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function elementDragTouch(e) {
+                if (e.touches.length !== 1) return;
+                pos1 = pos3 - e.touches[0].clientX;
+                pos2 = pos4 - e.touches[0].clientY;
+                pos3 = e.touches[0].clientX;
+                pos4 = e.touches[0].clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+                document.ontouchend = null;
+                document.ontouchmove = null;
+            }
+        }
+
+        function removeLogoSlot(index) {
+            const slot = document.getElementById(`logo-slot-${index}`);
+            if (slot) slot.remove();
+            
+            const layer = document.getElementById(`preview-logo-${index}`);
+            if (layer) layer.remove();
+
+            logoSlots = logoSlots.filter(s => s.index !== index);
+        }
+
+        // ==================== MODAL + QUOTE ====================
+        function openCustomizeModal(preselectedProductId = null) {
+            const modal = document.getElementById('customize-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Populate product select
+            const select = document.getElementById('product-select');
+            select.innerHTML = '';
+            
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = `${product.name} — $${product.price} (${product.type})`;
+                select.appendChild(option);
+            });
+
+            // Preselect product if passed
+            if (preselectedProductId) {
+                select.value = preselectedProductId;
+            }
+            
+            currentProduct = products.find(p => p.id == select.value) || products[0];
+
+            // Initialize first logo slot
+            document.getElementById('logo-upload-area').innerHTML = '';
+            logoSlots = [];
+            addLogoSlot();
+
+            // Initial canvas draw
+            setTimeout(() => {
+                const primary = document.getElementById('color-primary').value;
+                const secondary = document.getElementById('color-secondary').value;
+                const accent = document.getElementById('color-accent').value;
+                drawBaseJersey(primary, secondary, accent);
+            }, 80);
+        }
+
+        function closeCustomizeModal() {
+            const modal = document.getElementById('customize-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        async function submitQuoteRequest() {
+            const btns = document.querySelectorAll('#customize-modal button');
+            btns.forEach(b => b.disabled = true);
+
+            const teamName = document.getElementById('team-name').value.trim() || 'Unnamed Team';
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+            const notes = document.getElementById('notes').value.trim();
+            const product = currentProduct || products[0];
+
+            // Collect logo metadata (in production we would have R2 URLs)
+            const logos = logoSlots
+                .filter(l => l.file)
+                .map(l => ({
+                    name: l.file.name,
+                    size: l.file.size,
+                    type: l.file.type
+                }));
+
+            const quoteData = {
+                productId: product.id,
+                productName: product.name,
+                teamName,
+                quantity: qty,
+                notes,
+                colors: {
+                    primary: document.getElementById('color-primary').value,
+                    secondary: document.getElementById('color-secondary').value,
+                    accent: document.getElementById('color-accent').value
+                },
+                logos,
+                timestamp: new Date().toISOString(),
+                source: 'vanilla-public-storefront'
+            };
+
+            console.log('%c[VinAI] Quote Request Payload:', 'color:#64748b', quoteData);
+
+            // TODO: Replace with real call
+            // 1. Upload logos to R2 using presigned URLs from your Cloudflare Worker
+            // 2. POST quoteData + R2 URLs to Supabase or Worker
+
+            // Simulate success (replace with real API)
+            setTimeout(() => {
+                alert(`Quote request submitted successfully!\n\nTeam: ${teamName}\nProduct: ${product.name}\nQuantity: ${qty}\n\nOur team will contact you within 2 hours at the email you provide next.`);
+                
+                closeCustomizeModal();
+                btns.forEach(b => b.disabled = false);
+                
+                // Optional: redirect to thank you or client dashboard later
+            }, 850);
+        }
+
+        // R2 Direct Upload Helper (for future Worker integration)
+        async function uploadToR2(file) {
+            // In production:
+            // 1. Call your Cloudflare Worker: POST /api/r2/presign { filename, contentType }
+            // 2. Worker returns presigned URL + fields
+            // 3. Browser does direct PUT/POST to R2 (bypasses your server)
+            
+            console.log('%c[VinAI] R2 upload placeholder — implement presigned URL flow via Cloudflare Worker', 'color:#f59e0b');
+            return `https://r2.resurgence-dx.biz/logos/${Date.now()}-${file.name}`;
+        }
+
+        // Keyboard escape support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('customize-modal');
+                if (!modal.classList.contains('hidden')) {
+                    closeCustomizeModal();
+                }
+            }
+        });
+
+        // Boot the storefront
+        window.onload = function() {
+            initializeStorefront();
+            
+            // Bonus: Pre-select a popular product in console for devs
+            console.log('%c[VinAI] Public storefront ready. Zero framework. Maximum conversion.', 'color:#22c55e');
+        };
+    </script>
+</body>
+</html>

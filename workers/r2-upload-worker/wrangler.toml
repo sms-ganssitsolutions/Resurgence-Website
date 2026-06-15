@@ -5,7 +5,7 @@ compatibility_date = "2026-06-01"
 workers_dev = true
 preview_urls = true
 
-# R2 binding managed in Cloudflare Dashboard
+# R2 binding is managed in the Cloudflare Dashboard
 # [[r2_buckets]]
 # binding = "BUCKET"
 # bucket_name = "resurgence-logos"

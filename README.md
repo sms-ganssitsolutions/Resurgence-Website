@@ -23,19 +23,25 @@ This is the **official public-facing storefront** repository for Resurgence Powe
 
 ## Key Features (Current)
 - Dynamic product grid with category filtering (Sublimation / DTF)
-- Live Customizer modal with Canvas jersey preview
-- Drag-to-position logo layers (DOM overlay for performance)
+- Live Customizer modal with Canvas jersey preview + drag-to-position logos
+- **Direct R2 uploads** via Cloudflare Worker (presigned PUT URLs)
 - Real-time brand color updates
 - Multi-logo upload (max 4) with client-side preview
-- Quote request payload ready for R2 + Supabase/Worker
+- Quote request payload ready (includes R2 keys)
 - Dynamic branding injection point (ready for Cloudflare KV)
 - Multi-currency foundation prepared
 
+## Current Status (June 15, 2026)
+- **R2 Direct Upload Worker** — ✅ Completed & production-ready
+- Supabase schema + RLS — Pending
+- Dynamic branding via KV — Pending
+- Admin dashboard — Pending
+
 ## Immediate Next Priorities (VinAI Order)
-1. Cloudflare Worker for R2 direct presigned uploads (logo assets)
-2. Supabase schema + RLS for quotes/orders
-3. Dynamic branding via KV (admin controllable, edge-served)
-4. Campaign Studio (9:16 video prompt generator for Super Admin)
+1. Integrate R2 Worker into customizer (client-side patch ready)
+2. Supabase schema design + RLS policies for quotes/orders
+3. Dynamic branding system via Cloudflare KV
+4. Campaign Studio (9:16 video prompt generator)
 
 ## Local Development
 Just open `index.html` in any browser. No build step required.

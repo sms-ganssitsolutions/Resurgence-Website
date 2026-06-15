@@ -1,0 +1,98 @@
+// =====================================================
+// INTEGRATION PATCH FOR index.html
+// Replace your current handleLogoUpload function with this
+// =====================================================
+
+async function handleLogoUpload(index, input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    // Validation
+    if (!file.type.startsWith('image/')) {
+        alert("Please upload an image file (PNG, JPG, SVG).");
+        input.value = '';
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        alert("File too large. Maximum 5MB allowed.");
+        input.value = '';
+        return;
+    }
+
+    const nameEl = document.getElementById(`logo-name-${index}`);
+    if (nameEl) {
+        nameEl.textContent = file.name.length > 20 
+            ? file.name.substring(0, 17) + '...' 
+            : file.name;
+    }
+
+    try {
+        // === STEP 1: Request presigned URL from Worker ===
+        const presignResponse = await fetch('https://resurgence-r2-upload.<YOUR-SUBDOMAIN>.workers.dev/api/r2/presign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                filename: file.name,
+                contentType: file.type
+            })
+        });
+
+        if (!presignResponse.ok) {
+            const err = await presignResponse.json().catch(() => ({}));
+            throw new Error(err.error || 'Failed to get upload permission');
+        }
+
+        const { uploadUrl, key } = await presignResponse.json();
+
+        // === STEP 2: Upload directly to R2 (browser → R2) ===
+        const uploadResponse = await fetch(uploadUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': file.type,
+            },
+            body: file
+        });
+
+        if (!uploadResponse.ok) {
+            throw new Error(`R2 upload failed with status ${uploadResponse.status}`);
+        }
+
+        // === SUCCESS ===
+        logoSlots[index] = {
+            ...logoSlots[index],
+            file,
+            r2Key: key,
+            uploaded: true,
+            uploadedAt: new Date().toISOString()
+        };
+
+        // Show visual preview in customizer
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            addLogoToPreview(index, e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+        console.log('%c[VinAI] ✓ Logo uploaded directly to R2:', 'color:#22c55e', key);
+
+    } catch (error) {
+        console.error('[R2 Upload] Error:', error);
+        
+        // Fallback: still allow local preview so user isn't blocked
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            logoSlots[index] = { 
+                ...logoSlots[index], 
+                file, 
+                url: e.target.result,
+                uploadFailed: true 
+            };
+            addLogoToPreview(index, e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+        alert('Direct upload failed. Preview will still work, but logo may not be saved on our servers. Please try again or contact support.');
+    }
+}

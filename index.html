@@ -494,6 +494,11 @@
         let previewCanvas, ctx;
         let currentProduct = null;
 
+        // === R2 DIRECT UPLOAD CONFIGURATION ===
+        // Using custom domain for clean production URLs (recommended)
+        // → Add "uploads.resurgence-dx.biz" as a Custom Domain on the R2 Worker in Cloudflare
+        const R2_WORKER_URL = 'https://uploads.resurgence-dx.biz';
+
         // Initialize everything
         function initializeStorefront() {
             initTailwind();
@@ -761,36 +766,92 @@
             logoSlots.push({ index, file: null, url: null });
         }
 
-        function handleLogoUpload(index, input) {
+        async function handleLogoUpload(index, input) {
             const file = input.files[0];
             if (!file) return;
 
-            // Basic validation
+            // Validation
             if (!file.type.startsWith('image/')) {
-                alert("Please upload an image file.");
+                alert("Please upload an image file (PNG, JPG, SVG).");
+                input.value = '';
                 return;
             }
-            if (file.size > 2 * 1024 * 1024) {
-                alert("File too large. Max 2MB recommended for R2 upload.");
+            if (file.size > 5 * 1024 * 1024) {
+                alert("File too large. Maximum 5MB allowed.");
+                input.value = '';
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                // Update UI
-                const nameEl = document.getElementById(`logo-name-${index}`);
-                if (nameEl) nameEl.textContent = file.name.length > 18 ? file.name.substring(0, 15) + '...' : file.name;
+            const nameEl = document.getElementById(`logo-name-${index}`);
+            if (nameEl) {
+                nameEl.textContent = file.name.length > 20 
+                    ? file.name.substring(0, 17) + '...' 
+                    : file.name;
+            }
 
-                // Store file reference
-                logoSlots[index] = { ...logoSlots[index], file, url: e.target.result };
+            try {
+                // 1. Request presigned PUT URL from R2 Worker
+                const presignRes = await fetch(`${R2_WORKER_URL}/api/r2/presign`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        filename: file.name,
+                        contentType: file.type
+                    })
+                });
 
-                // Add visual layer to preview (simplified DOM overlay for now)
-                addLogoToPreview(index, e.target.result);
-            };
-            reader.readAsDataURL(file);
+                if (!presignRes.ok) {
+                    const errData = await presignRes.json().catch(() => ({}));
+                    throw new Error(errData.error || 'Failed to get upload URL');
+                }
 
-            // TODO: In production, get presigned URL from Cloudflare Worker and upload directly to R2 here
-            // Example: uploadToR2(file).then(url => console.log('Uploaded to R2:', url))
+                const { uploadUrl, key } = await presignRes.json();
+
+                // 2. Upload the file directly from browser to R2 (no proxy)
+                const uploadRes = await fetch(uploadUrl, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': file.type },
+                    body: file
+                });
+
+                if (!uploadRes.ok) {
+                    throw new Error(`Direct R2 upload failed with status ${uploadRes.status}`);
+                }
+
+                // 3. Store successful upload metadata
+                logoSlots[index] = {
+                    ...logoSlots[index],
+                    file,
+                    r2Key: key,
+                    uploaded: true,
+                    uploadedAt: new Date().toISOString()
+                };
+
+                // 4. Show visual preview in the customizer
+                const reader = new FileReader();
+                reader.onload = (e) => addLogoToPreview(index, e.target.result);
+                reader.readAsDataURL(file);
+
+                console.log('%c[VinAI] ✓ Logo uploaded directly to R2:', 'color:#22c55e', key);
+
+            } catch (error) {
+                console.error('[R2 Upload Error]', error);
+
+                // Fallback: still allow local preview so the user isn't blocked
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    logoSlots[index] = { 
+                        ...logoSlots[index], 
+                        file, 
+                        url: e.target.result,
+                        uploadFailed: true 
+                    };
+                    addLogoToPreview(index, e.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                alert('Direct R2 upload failed. Preview is still available.\n\nPlease deploy the R2 Worker and update R2_WORKER_URL in the code.');
+            }
         }
 
         function addLogoToPreview(index, dataUrl) {
@@ -973,17 +1034,6 @@
                 
                 // Optional: redirect to thank you or client dashboard later
             }, 850);
-        }
-
-        // R2 Direct Upload Helper (for future Worker integration)
-        async function uploadToR2(file) {
-            // In production:
-            // 1. Call your Cloudflare Worker: POST /api/r2/presign { filename, contentType }
-            // 2. Worker returns presigned URL + fields
-            // 3. Browser does direct PUT/POST to R2 (bypasses your server)
-            
-            console.log('%c[VinAI] R2 upload placeholder — implement presigned URL flow via Cloudflare Worker', 'color:#f59e0b');
-            return `https://r2.resurgence-dx.biz/logos/${Date.now()}-${file.name}`;
         }
 
         // Keyboard escape support

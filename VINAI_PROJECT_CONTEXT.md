@@ -86,11 +86,12 @@ resurgence-dx.biz/
 ```
 ---
 Immediate Priorities (Ruthless Order)
-R2 Direct Upload Worker — Complete the presigned URL flow for logo uploads.
-Supabase Schema + RLS — Map the full role/permission system.
-Admin Dashboard — Build role-protected interface (start with Orders Kanban).
-Campaign Studio — Super Admin tool to generate 9:16 live-selling video prompts.
-Dynamic Branding via KV — Make branding fully controllable from admin and served from edge.
+R2 Direct Upload Worker — ✅ Completed (presigned PUT URLs ready)
+Supabase Schema + RLS — Map the full role/permission system (next)
+Admin Dashboard — Build role-protected interface (start with Orders Kanban)
+Campaign Studio — Super Admin tool to generate 9:16 live-selling video prompts
+Dynamic Branding via KV — Make branding fully controllable from admin and served from edge
+Workers folder now contains: r2-upload-worker/
 ---
 How to Use This Context
 When starting a new conversation or new repo about this project:

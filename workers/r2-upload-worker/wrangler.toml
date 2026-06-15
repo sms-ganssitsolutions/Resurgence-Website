@@ -1,4 +1,4 @@
-name = "resurgence-r2-upload"
+name = "resurgence-website"
 main = "src/index.ts"
 compatibility_date = "2026-06-01"
 

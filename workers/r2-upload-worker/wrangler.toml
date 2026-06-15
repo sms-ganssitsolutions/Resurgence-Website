@@ -1,0 +1,15 @@
+name = "resurgence-website"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+workers_dev = true
+preview_urls = true
+
+# R2 binding managed in Cloudflare Dashboard
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "resurgence-logos"
+
+[vars]
+ALLOWED_ORIGINS = "https://resurgence-dx.biz,http://localhost:3000,http://127.0.0.1:5500"
+MAX_FILE_SIZE_MB = "5"

@@ -52,11 +52,45 @@ npm install -D tailwindcss
 npx tailwindcss -i ./input.css -o ./styles.css --watch
 ```
 
-## Deployment
-1. Connect this repo to Cloudflare Pages
-2. Build command: (leave empty — static)
-3. Output directory: `/` (root)
-4. Add custom domain `resurgence-dx.biz`
+## Deployment to Cloudflare Pages (Production)
+
+This site is optimized for **Cloudflare Pages** (zero build, maximum performance).
+
+### Step-by-step Deployment
+
+1. **Connect Repository**
+   - Go to [Cloudflare Pages](https://dash.cloudflare.com)
+   - Create a new project → Connect to Git
+   - Select this repository: `sms-ganssitsolutions/Resurgence-Website`
+   - **Production branch**: `main`
+
+2. **Build Settings**
+   - **Framework preset**: None
+   - **Build command**: *(leave empty)*
+   - **Build output directory**: `/` (root)
+   - Root directory: `/`
+
+3. **Deploy**
+   - Click **Save and Deploy**
+   - Your site will be live at `https://<random>.pages.dev`
+
+4. **Add Custom Domain**
+   - Go to your Pages project → **Custom domains**
+   - Add `resurgence-dx.biz`
+   - Follow the prompts to update DNS at your registrar (or use Cloudflare Registrar)
+   - Enable ** proxied** (orange cloud) for full security + performance
+
+5. **Recommended Cloudflare Settings**
+   - Enable **Cache Everything** page rule for `/*`
+   - Turn on **Always Use HTTPS**
+   - Enable **Brotli** compression
+
+### R2 Worker Custom Domain (Separate)
+
+For direct logo uploads, also add:
+- `uploads.resurgence-dx.biz` → as Custom Domain on the `resurgence-r2-upload` Worker
+
+This keeps upload traffic clean and professional.
 
 ## Branding & Legal
 - Company: RESURGENCE

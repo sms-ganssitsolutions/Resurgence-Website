@@ -2,18 +2,19 @@ name = "resurgence-website"
 main = "src/index.ts"
 compatibility_date = "2026-06-01"
 
+# Enable workers.dev route (for testing)
+workers_dev = true
+preview_urls = true
+
 # R2 Bucket binding
-# IMPORTANT: Create your R2 bucket first in the Cloudflare dashboard
-# Then run: wrangler r2 bucket create resurgence-logos
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "resurgence-logos"
 
-# Environment variables (optional but recommended)
+# Environment variables
 [vars]
 ALLOWED_ORIGINS = "https://resurgence-dx.biz,http://localhost:3000,http://127.0.0.1:5500"
 MAX_FILE_SIZE_MB = "5"
 
-# For production, lock this down further
-# You can also add a secret for simple auth if needed later
+# Optional: Add a secret later for extra protection
 # wrangler secret put UPLOAD_SECRET
